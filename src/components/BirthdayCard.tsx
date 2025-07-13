@@ -3,7 +3,6 @@
 import { Button } from '@heroui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Confetti from 'react-confetti';
 
 interface BirthdayCardProps {
