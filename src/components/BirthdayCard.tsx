@@ -55,13 +55,12 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
                         exit={{ opacity: 0 }}
                         transition={{ delay: 1, duration: 0.7 }}
                         className='absolute z-30'
-                        children={<Button
-                            onClick={handleOpen}
-                            className=" px-6 py-3 text-lg font-semibold bg-gradient-to-r from-gray-600 to-gray-500 text-white shadow-xl hover:scale-105 transition rounded-full"
-                        >
+                    ><Button
+                        onClick={handleOpen}
+                        className=" px-6 py-3 text-lg font-semibold bg-gradient-to-r from-gray-600 to-gray-500 text-white shadow-xl hover:scale-105 transition rounded-full"
+                    >
                             🎁 Open
-                        </Button>}
-                    />
+                        </Button></motion.div>
 
                 )}
 
