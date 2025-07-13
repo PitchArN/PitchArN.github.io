@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
+import { Button, Card } from "@heroui/react";
+import Confetti from 'react-confetti';
 
 const faceRotations: Record<number, { x: number; y: number }> = {
     1: { x: 0, y: 0 },
@@ -21,24 +23,25 @@ const faceGradients: Record<number, string> = {
     5: "bg-gradient-to-br from-purple-300 to-violet-200",
     6: "bg-gradient-to-br from-pink-300 to-rose-200",
 };
-const faceIcon: Record<number, string> = {
-    1: "หนึ่ง",
-    2: "สอง",
-    3: "สาม",
-    4: "สี่",
-    5: "ห้า",
-    6: "หก",
+
+// 🎴 Replace with real fortunes or icons later
+const faceSymbols: Record<number, string> = {
+    1: "🌞",
+    2: "🌧️",
+    3: "🌈",
+    4: "💰",
+    5: "❤️",
+    6: "🌀",
 };
 
 export default function Dice() {
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
-    const [result, setResult] = useState<number>();
+    const [result, setResult] = useState<number | undefined>();
     const [showResult, setShowResult] = useState(false);
 
     const throwDice = () => {
         const face = Math.floor(Math.random() * 6) + 1;
         const base = faceRotations[face];
-
         const fullSpinsX = 360 * (Math.floor(Math.random() * 3) + 2);
         const fullSpinsY = 360 * (Math.floor(Math.random() * 3) + 2);
 
@@ -48,11 +51,14 @@ export default function Dice() {
         });
 
         setResult(face);
-        setShowResult(false); // Hide during animation
+        setShowResult(false);
     };
 
     return (
-        <div className="flex flex-col items-center space-y-4">
+        <div className="w-full h-full p-6 flex flex-col items-center justify-center border-8 border-white rounded-md relative">
+            {/* Confetti */}
+            {result && showResult && <Confetti className="z-10" width={window.innerWidth - 24} height={window.innerHeight - 24} />}
+
             <motion.div
                 className="w-[150px] h-[150px] cursor-pointer"
                 drag
@@ -83,14 +89,14 @@ export default function Dice() {
                             <div
                                 key={i}
                                 className={clsx(
-                                    "absolute w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-sm shadow-2xl border-8 border-white",
+                                    "absolute w-full h-full flex items-center justify-center text-white text-4xl font-bold rounded-sm shadow-2xl border-8 border-white",
                                     faceGradients[faceNumber]
                                 )}
                                 style={{
                                     transform: getFaceTransform(faceNumber),
                                 }}
                             >
-                                {faceIcon[i + 1]}
+                                {faceSymbols[faceNumber]}
                             </div>
                         );
                     })}
@@ -98,8 +104,25 @@ export default function Dice() {
             </motion.div>
 
             {showResult && result && (
-                <div className="fixed text-lg font-semibold text-white bg-gray-700">
-                    Result: <span className="text-purple-600">{result}</span>
+                <div className="fixed w-full h-full inset-0  flex items-center justify-center z-50 p-4 backdrop-blur-xs">
+                    <Card className="bg-white rounded-md shadow px-8 py-16 relative w-full max-w-sm text-center">
+
+                        <div className="flex flex-col justify-center items-center pt-8 pb-6 text-white gap-3">
+                            <div className="flex text-5xl mb-4">{faceSymbols[result]}</div>
+                            <Button
+                                onClick={() => console.log(result)}
+                                className="flex w-full border-2 border-gray-700 text-gray-700 text-base font-medium rounded-md p-2 animate-gradient"
+                            >
+                                ดูผล
+                            </Button>
+                            <Button
+                                onClick={() => { setShowResult(false); setResult(undefined) }}
+                                className="flex border-2 border-gray-700 text-gray-700 p-2 rounded-md w-full text-base font-medium"
+                            >
+                                ทอยอีกครั้ง
+                            </Button>
+                        </div>
+                    </Card>
                 </div>
             )}
         </div>
@@ -110,17 +133,17 @@ function getFaceTransform(face: number) {
     const distance = 74;
     switch (face) {
         case 1:
-            return `rotateY(0deg) translateZ(${distance}px)`; // Front
+            return `rotateY(0deg) translateZ(${distance}px)`;
         case 2:
-            return `rotateY(90deg) translateZ(${distance}px)`; // Right
+            return `rotateY(90deg) translateZ(${distance}px)`;
         case 3:
-            return `rotateY(180deg) translateZ(${distance}px)`; // Back
+            return `rotateY(180deg) translateZ(${distance}px)`;
         case 4:
-            return `rotateY(-90deg) translateZ(${distance}px)`; // Left
+            return `rotateY(-90deg) translateZ(${distance}px)`;
         case 5:
-            return `rotateX(90deg) translateZ(${distance}px)`; // Top
+            return `rotateX(90deg) translateZ(${distance}px)`;
         case 6:
-            return `rotateX(-90deg) translateZ(${distance}px)`; // Bottom
+            return `rotateX(-90deg) translateZ(${distance}px)`;
         default:
             return "";
     }

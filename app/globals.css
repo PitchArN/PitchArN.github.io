@@ -1,4 +1,41 @@
 @import "tailwindcss";
+@tailwind utilities;
+
+@layer utilities {
+  .animate-gradient {
+    background: linear-gradient(270deg,
+        #fca5a5,
+        #fdba74,
+        #86efac,
+        #a7f3d0,
+        #93c5fd,
+        #a5f3fc,
+        #fef08a,
+        #fcd34d,
+        #d8b4fe,
+        #ddd6fe,
+        #f9a8d4,
+        #fecdd3,
+        #fca5a5);
+    background-size: 2400% 2400%;
+    animation: gradient-slowshift 30s ease-in-out infinite;
+  }
+
+  @keyframes gradient-slowshift {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
 
 :root {
   --background: #ffffff;
