@@ -13,8 +13,6 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
-
-    // Handle confetti appearance timing
     useEffect(() => {
         if (isOpen) {
             const timer = setTimeout(() => setShowConfetti(true), 1200);
@@ -36,17 +34,14 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
         setTimeout(() => {
             setIsOpen(false);
             setIsAnimating(false);
-        }, 1600); // Wait until all reverse animations complete
+        }, 1600);
     };
 
     return (
-        <div className="relative w-screen h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-400 overflow-hidden">
-
-            {/* Confetti */}
+        <div className="relative flex items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-br from-gray-100 to-gray-400">
             {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
-
-            {/* Card Container */}
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
+            {(!isOpen && !isAnimating) && <div className='fixed z-50 text-lg top-5 '>ดูดีที่สุดบนจอโทรศัพท์แนวตั้งนะ</div>}
+            <div className="relative z-10 flex items-center justify-center w-full h-full">
 
                 {!isOpen && (
                     <motion.div
@@ -57,41 +52,38 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
                         className='absolute z-30'
                     ><Button
                         onClick={handleOpen}
-                        className=" px-6 py-3 text-lg font-semibold bg-gradient-to-r from-gray-600 to-gray-500 text-white shadow-xl hover:scale-105 transition rounded-full"
+                        className="px-6 py-3 text-lg font-semibold text-white transition rounded-full shadow-xl bg-gradient-to-r from-gray-600 to-sky-800 hover:scale-105"
                     >
-                            🎁 Open
+                            🎁 เปิด
                         </Button></motion.div>
 
                 )}
 
-                {/* Side Doors */}
                 <motion.div
                     animate={{ rotateY: isOpen ? -140 : 0 }}
                     transition={{ duration: 1 }}
-                    className=" w-1/2 h-full origin-left bg-gradient-to-br from-gray-300 to-gray-100 border-r border-gray-400 shadow-inner z-20 rounded-l-xl overflow-hidden"
+                    className="z-20 w-1/2 h-full overflow-hidden origin-left border-r border-gray-400 shadow-inner bg-gradient-to-br from-gray-300 to-gray-100 rounded-l-xl"
                     style={{ backfaceVisibility: 'hidden' }}
                 />
 
                 <motion.div
                     animate={{ rotateY: isOpen ? 140 : 0 }}
                     transition={{ duration: 1 }}
-                    className=" w-1/2 h-full origin-right bg-gradient-to-br from-gray-300 to-gray-100 border-l border-gray-400 shadow-inner z-20 rounded-r-xl overflow-hidden"
+                    className="z-20 w-1/2 h-full overflow-hidden origin-right border-l border-gray-400 shadow-inner bg-gradient-to-br from-gray-300 to-gray-100 rounded-r-xl"
                     style={{ backfaceVisibility: 'hidden' }}
                 />
 
-                {/* Top and Bottom Flaps */}
                 <motion.div
                     animate={{ rotateX: isOpen ? -120 : 0 }}
                     transition={{ duration: 0.7, delay: isOpen ? 0.6 : 0.4 }}
-                    className="absolute bottom-0 w-full h-1/2 origin-bottom bg-white/70 rounded-t-xl shadow-inner z-10"
+                    className="absolute bottom-0 z-10 w-full origin-bottom shadow-inner h-1/2 bg-white/70 rounded-t-xl"
                 />
                 <motion.div
                     animate={{ rotateX: isOpen ? 120 : 0 }}
                     transition={{ duration: 0.7, delay: isOpen ? 0.6 : 0.4 }}
-                    className="absolute top-0 w-full h-1/2 origin-top bg-white/70 rounded-b-xl shadow-inner z-10"
+                    className="absolute top-0 z-10 w-full origin-top shadow-inner h-1/2 bg-white/70 rounded-b-xl"
                 />
 
-                {/* Inner Content with Exit Animation */}
                 <AnimatePresence>
                     {isOpen && !isAnimating && (
                         <motion.div
@@ -100,16 +92,16 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="absolute w-full h-full flex flex-col items-center justify-center px-10 text-center backdrop-blur-xs rounded-xl shadow-2xl border border-gray-300 z-10"
+                            className="absolute z-10 flex flex-col items-center justify-center w-full lg:w-[500px]  lg:h-[60%] h-[90%] px-0.5 text-center rounded-md backdrop-blur-md"
                         >
-                            <div className="mb-6">{children}</div>
-
-                            <Button
-                                onClick={handleClose}
-                                className="mt-4 px-5 py-2 text-md font-semibold border-2 border-gray-700 text-gray-700 shadow-md hover:scale-105 transition rounded-full"
-                            >
-                                Fold
-                            </Button>
+                            <div className="relative w-full h-full mt-8 lg:mt-0">{children}</div>
+                            <div className='w-full h-[10%]'>
+                                <Button
+                                    onClick={handleClose}
+                                    className="px-5 py-2 mt-4 font-semibold text-gray-700 transition border-2 border-gray-700 rounded-full shadow-md text-md hover:scale-105"
+                                >
+                                    พับเก็บ
+                                </Button></div>
                         </motion.div>
                     )}
                 </AnimatePresence>
