@@ -1,7 +1,7 @@
 "use client"
 import BirthdayCard from "@/components/BirthdayCard";
 import { Button } from "@heroui/react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function CardPage() {
