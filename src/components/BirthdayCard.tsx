@@ -38,9 +38,9 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
     };
 
     return (
-        <div className="relative flex items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-br from-gray-100 to-gray-400">
+        <div className={`relative flex items-center justify-center w-screen h-screen overflow-hidden ${(!isOpen && !isAnimating) ? "border-b-4 border-red-400" : ""} bg-gradient-to-br from-gray-100 to-gray-400`}>
             {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
-            {(!isOpen && !isAnimating) && <div className='fixed z-50 text-lg top-5 '>ดูดีที่สุดบนจอโทรศัพท์แนวตั้งนะ</div>}
+            {(!isOpen && !isAnimating) && <div className='fixed z-50 text-lg text-center text-gray-500 top-5 '>ดูดีที่สุดบนจอโทรศัพท์แนวตั้งนะ <br /> (เลื่อนจอให้เห็นขอบแดงข้างล่างด้วย)</div>}
             <div className="relative z-10 flex items-center justify-center w-full h-full">
 
                 {!isOpen && (
