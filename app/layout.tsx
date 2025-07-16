@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
+      <link rel="icon" href="/vercel.svg" sizes="any" />
       <body >
         {children}
       </body>

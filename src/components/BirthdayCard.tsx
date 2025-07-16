@@ -92,9 +92,9 @@ export default function BirthdayCard({ children }: BirthdayCardProps) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="absolute z-10 flex flex-col items-center justify-center w-full lg:w-[500px]  lg:h-[60%] h-full px-0.5 text-center rounded-md backdrop-blur-md"
+                            className="absolute z-10 flex flex-col items-center justify-center w-full h-full px-0.5 text-center rounded-md backdrop-blur-md"
                         >
-                            <div className="relative w-full h-[80%] mt-8 lg:mt-2">{children}</div>
+                            <div className="relative w-full max-w-lg h-[80%] lg:h-[60%] mt-8 lg:mt-2">{children}</div>
                             <div className='w-full h-[10%]'>
                                 <Button
                                     onClick={handleClose}
